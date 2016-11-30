@@ -12,6 +12,7 @@ using Microsoft.Extensions.Localization;
 using SecondAid.Resources;
 using SecondAid.Areas.Apis.Controllers;
 using SecondAid.Models.AccountViewModels;
+using SecondAid.Data;
 
 namespace SecondAid.Controllers
 {
@@ -69,6 +70,12 @@ namespace SecondAid.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    if(model.ClinicId != (await _userManager.FindByEmailAsync(model.Email)).ClinicId )
+                    {
+                        ModelState.AddModelError("", "Clinic number is incorrect. Please try again");
+                        return View(model);
+                    }
+
                     _logger.LogInformation(1, _controllerLocalizer["User logged in."]);
                     return RedirectToLocal(returnUrl);
                 }
@@ -110,6 +117,7 @@ namespace SecondAid.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+            var context = new ApplicationDbContext(null);
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser {
@@ -127,6 +135,8 @@ namespace SecondAid.Controllers
                     AddressPostalCode = model.AddressPostalCode,
                     AddressCountry = model.AddressCountry,
                     PhoneNumber = model.PhoneNumber,
+                    ClinicId = model.ClinicId,
+                    Clinic = context.Clinics.FirstOrDefault(e => e.ClinicId == model.ClinicId)
                 };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

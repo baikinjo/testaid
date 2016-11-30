@@ -17,15 +17,15 @@ namespace SecondAid.Data.Seed.Users
             //var context = app.ApplicationServices.GetService<ApplicationDbContext>();
             UserWithRoles[] usersWithRoles = {
                 // Add a new user 'admin' with roles 'Administrator' and 'Patient' with password 'P@$$w0rd'
-                new UserWithRoles("admin", new string[] { "Administrator" , "Staff" },"P@$$w0rd"),//user and optional roles and password you want to seed
+                new UserWithRoles(context, "admin", new string[] { "Administrator" , "Patient" },"P@$$w0rd"),//user and optional roles and password you want to seed 
 
                 // Add a new user 'guest', no roles and default password 'Open123$'
-                new UserWithRoles("guest"),
+                new UserWithRoles(context, "guest"),
 
                 new UserWithRoles("patient", new string[] {"Patient"}, "P@$$w0rd"),
 
                 // Add a new user 'bob', role 'Patient' and default password 'Open123$'
-                new UserWithRoles("jane",new string[]{"Patient" }) //seed roles to existing users (e.g. facebook login).
+                new UserWithRoles(context, "jane",new string[]{"Patient" }) //seed roles to existing users (e.g. facebook login).
             };
 
             foreach (var u in usersWithRoles)

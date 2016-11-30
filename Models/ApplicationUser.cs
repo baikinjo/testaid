@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using SecondAid.Models.Health;
+using System.ComponentModel.DataAnnotations;
 
 namespace SecondAid.Models
 {
@@ -23,5 +25,11 @@ namespace SecondAid.Models
         public string AddressProvince { get; set; }
         public string AddressPostalCode { get; set; }
         public string AddressCountry { get; set; }
+
+        [Display(Name = "Clinic")]
+        public int ClinicId { get; set; }
+        public Clinic Clinic { get; set; }
+
+
     }
 }

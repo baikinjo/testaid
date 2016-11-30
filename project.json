@@ -102,8 +102,8 @@
       "dotnet bundle"
     ],
     "postpublish": [
-	  "dotnet ef database update",
-      "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%", "dotnet ef database update"
+      "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%",
+      "dotnet ef database update"
     ]
   }
 }

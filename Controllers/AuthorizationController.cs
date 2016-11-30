@@ -136,6 +136,32 @@ namespace SecondAid.Controllers
                     });
                 }
 
+                var holder = request.GetParameter("clinic_id").ToString();
+                Console.WriteLine(holder);
+                var clinicId = -1;
+                try
+                {
+                    if (!int.TryParse(holder, out clinicId))
+                    {
+                        throw new Exception("Invalid clinic id.");
+                    }
+                }
+                catch (Exception e) {
+                    return BadRequest(new OpenIdConnectResponse
+                    {
+                        Error = OpenIdConnectConstants.Errors.InvalidGrant,
+                        ErrorDescription = "Invalid clinic id."
+                    });
+                }
+                
+                if (clinicId != user.ClinicId) {
+                    return BadRequest(new OpenIdConnectResponse
+                    {
+                        Error = OpenIdConnectConstants.Errors.InvalidGrant,
+                        ErrorDescription = "Invalid clinic id."
+                    });
+                }
+
                 // Ensure the user is allowed to sign in.
                 if (!await _signInManager.CanSignInAsync(user)) {
                     return BadRequest(new OpenIdConnectResponse
@@ -159,7 +185,7 @@ namespace SecondAid.Controllers
                     return BadRequest(new OpenIdConnectResponse
                     {
                         Error = OpenIdConnectConstants.Errors.InvalidGrant,
-                        ErrorDescription = "The username/password couple is invalid."
+                        ErrorDescription = "The user is locked out."
                     });
                 }
 

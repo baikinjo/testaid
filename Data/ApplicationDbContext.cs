@@ -31,6 +31,7 @@ namespace SecondAid.Data
         public DbSet<MedicationInstruction> MedicationInstructions { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<PreInstruction> PreInstructions { get; set; }
+        public DbSet<Clinic> Clinics { get; set; }
         public DbSet<Questionnaire> Questionnaires { get; set; }
         public DbSet<Question> Question { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }

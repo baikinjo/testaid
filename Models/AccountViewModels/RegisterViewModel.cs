@@ -9,7 +9,7 @@ namespace SecondAid.Models.AccountViewModels
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "Frist Name")]
+        [Display(Name = "First Name")]
         [MaxLength(30, ErrorMessage = "{0} cannot be longer than {1} characters.")]
         public string FirstName { get; set; }
 
@@ -21,6 +21,9 @@ namespace SecondAid.Models.AccountViewModels
         [Required]
         [MaxLength(10, ErrorMessage = "{0} cannot be longer than {1} characters.")]
         public string Gender { get; set; }
+
+        [Required(ErrorMessage = "Cannot register without a valid clinic number.")]
+        public int ClinicId { get; set; }
 
         [Required]
         [MaxLength(12, ErrorMessage = "{0} cannot be longer than {1} characters.")]

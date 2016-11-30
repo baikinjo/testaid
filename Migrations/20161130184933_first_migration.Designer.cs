@@ -8,9 +8,10 @@ using SecondAid.Data;
 namespace SecondAid.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161130184933_first_migration")]
+    partial class first_migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1");
@@ -368,17 +369,17 @@ namespace SecondAid.Migrations
                     b.Property<int>("QuestionId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("ExpectedAnswer");
+
+                    b.Property<bool>("PatientAnswer");
+
                     b.Property<string>("QuestionBody");
 
                     b.Property<int?>("QuestionnaireId");
 
-                    b.Property<int>("SubProcedureId");
-
                     b.HasKey("QuestionId");
 
                     b.HasIndex("QuestionnaireId");
-
-                    b.HasIndex("SubProcedureId");
 
                     b.ToTable("Question");
                 });
@@ -391,6 +392,8 @@ namespace SecondAid.Migrations
                     b.Property<string>("CreatedBy");
 
                     b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("Description");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -419,9 +422,13 @@ namespace SecondAid.Migrations
 
                     b.Property<int>("ProcedureId");
 
+                    b.Property<int?>("QuestionId");
+
                     b.HasKey("SubProcedureId");
 
                     b.HasIndex("ProcedureId");
+
+                    b.HasIndex("QuestionId");
 
                     b.ToTable("SubProcedures");
                 });
@@ -502,7 +509,7 @@ namespace SecondAid.Migrations
             modelBuilder.Entity("SecondAid.Models.ApplicationUser", b =>
                 {
                     b.HasOne("SecondAid.Models.Health.Clinic", "Clinic")
-                        .WithMany("ApplicationUsers")
+                        .WithMany()
                         .HasForeignKey("ClinicId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -528,11 +535,6 @@ namespace SecondAid.Migrations
                     b.HasOne("SecondAid.Models.Health.Questionnaire")
                         .WithMany("Questions")
                         .HasForeignKey("QuestionnaireId");
-
-                    b.HasOne("SecondAid.Models.Health.SubProcedure", "SubProcedure")
-                        .WithMany()
-                        .HasForeignKey("SubProcedureId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SecondAid.Models.Health.Questionnaire", b =>
@@ -549,6 +551,10 @@ namespace SecondAid.Migrations
                         .WithMany("SubProcedures")
                         .HasForeignKey("ProcedureId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SecondAid.Models.Health.Question")
+                        .WithMany("SubProcedures")
+                        .HasForeignKey("QuestionId");
                 });
 
             modelBuilder.Entity("SecondAid.Models.Health.Video", b =>

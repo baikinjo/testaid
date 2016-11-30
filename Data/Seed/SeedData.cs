@@ -62,6 +62,11 @@ namespace SecondAid.Data.Seed
                 db.SaveChanges();
             }
 
+            if (!db.Clinics.Any())
+            {
+                db.Clinics.AddRange(ClinicData.SeedData());
+                db.SaveChanges();
+            }
         }
     }
 }

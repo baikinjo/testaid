@@ -11,12 +11,13 @@ namespace SecondAid.Data.Seed.Users
     {
         private ApplicationUser _user;
         public ApplicationUser User { get { return _user; } }
-
+        
         public string[] Roles { get; set; }
 
-        public UserWithRoles(string name, string[] roles = null, 
-            string password = "Open123$")
+        public UserWithRoles(ApplicationDbContext _context, string name, string[] roles = null, 
+            string password = "Open123$", int clinicId = 1)
         {
+            
             if (roles != null)
                 Roles = roles;
             else
@@ -36,6 +37,8 @@ namespace SecondAid.Data.Seed.Users
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString("D"),
+                ClinicId = clinicId,
+                Clinic = _context.Clinics.FirstOrDefault(e => e.ClinicId == clinicId),
             };
             _user.PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(_user, password);
         }
