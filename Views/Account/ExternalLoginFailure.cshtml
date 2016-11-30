@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewData["Title"] = Localizer["Login Failure"];
+}
+
+<header>
+    <h2>@ViewData["Title"].</h2>
+    <p class="text-danger">@Localizer["Unsuccessful login with service."]</p>
+</header>

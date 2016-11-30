@@ -1,0 +1,35 @@
+﻿@model List<Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole>
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewBag.Title = Localizer["Roles"];
+}
+
+<h2>@ViewBag.Title</h2>
+<p>
+    <a class="glyphicon glyphicon-plus" asp-action="Create" title="Create New"></a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            Role Name
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Users", "Users", new { id = item.Name }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Name })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,16 @@
+﻿use HealthScope;
+drop table dbo.__EFMigrationsHistory;
+drop table videos;
+drop table PreInstructions;
+drop table MedicationInstructions;
+drop table Box;
+drop table SubProcedures;
+drop table Medications;
+drop table Procedures;
+drop table AspNetUserTokens;
+drop table AspNetUserClaims;
+drop table AspNetUserRoles;
+drop table AspNetUserLogins;
+drop table AspNetRoleClaims;
+drop table AspNetRoles;
+drop table AspNetUsers;

@@ -1,0 +1,136 @@
+﻿<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Get JWT token &amp; refresh token from OpenIddict</h1>
+    <div>
+        <label>username</label>
+        <input id="username" value="admin@gmail.com" />
+    </div>
+    <div>
+        <label>password</label>
+        <input id="password" value="P@$$w0rd" />
+    </div>
+    <br />
+    <div>
+        <button id="buttonToken">Get Token</button>
+        <button id="buttonAPI">Get API Data</button>
+    </div>
+    <h4>API Response</h4>
+    <pre style="max-width:100%;white-space: normal;overflow-wrap:break-word;" id="apiresponse"></pre>
+    <h4>Token Response</h4>
+    <pre style="max-width:100%;white-space: normal;overflow-wrap:break-word;" id="response"></pre>
+    <h4>Decoded Access Token</h4>
+    <pre style="max-width:100%;white-space: normal;overflow-wrap:break-word;" id="token"></pre>
+    <script>
+        //var baseUrl = window.location.protocol + "//" + window.location.host + "/";
+        var baseUrl = "http://localhost:61810/";
+
+        document.getElementById("buttonToken").addEventListener("click", getToken, false);
+        document.getElementById("buttonAPI").addEventListener("click", getAPI, false);
+
+        function getAPI() {
+            var data = document.getElementById("response").innerText;
+            document.getElementById("apiresponse").innerText = "loading...";
+            if (data === "") {
+                document.getElementById("apiresponse").innerText = "No token"
+                return;
+            }
+            var response = JSON.parse(data);
+
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function (e) {
+
+                console.log(xhr.status);
+                console.log(xhr.response);
+
+                document.getElementById("apiresponse").innerText = xhr.status + ": " + xhr.response;
+            }
+
+            xhr.open("GET", baseUrl + "json/api/procedures");
+
+            xhr.setRequestHeader("Authorization", "Bearer " + response.access_token);
+            xhr.send();
+        }
+
+        function getToken() {
+            var uid = document.getElementById("username").value;
+            var pwd = document.getElementById("password").value;
+
+            document.getElementById("response").innerText = "loading...";
+            document.getElementById("token").innerText = "loading...";
+            document.getElementById("apiresponse").innerText = "";
+
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function (e) {
+
+                console.log(xhr.status);
+                console.log(xhr.response);
+
+                document.getElementById("response").innerText = xhr.response;
+                //var decodedToken = decodeToken(JSON.parse(xhr.response).access_token);
+                //document.getElementById("token").innerText = JSON.stringify(decodedToken);
+
+                var response_data = JSON.parse(xhr.response);
+            }
+
+            var client_id = "openiddict-test";
+            var client_secret = "secret";
+
+            xhr.open("POST", baseUrl + "connect/token");
+            var data = {
+                username: uid,
+                password: pwd,
+                grant_type: "password",
+                // specify the resource, to match the audience in the jwt bearer middleware
+                resource: "http://localhost:61810/",
+                // offline_access: indicate refresh token is required
+                // profile: include custom fields
+                // email: include email address
+                // scope: "offline_access profile email"
+            };
+            var body = "";
+            for (var key in data) {
+                if (body.length) {
+                    body += "&";
+                }
+                body += key + "=";
+                body += encodeURIComponent(data[key]);
+            }
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send(body);
+        }
+
+        function decodeToken(token) {
+            var parts = token.split('.');
+
+            if (parts.length !== 3) {
+                throw new Error('JWT must have 3 parts');
+            }
+
+            var decoded = urlBase64Decode(parts[1]);
+            if (!decoded) {
+                throw new Error('Cannot decode the token');
+            }
+
+            return JSON.parse(decoded);
+        }
+
+        function urlBase64Decode(str) {
+            var output = str.replace('-', '+').replace('_', '/');
+            switch (output.length % 4) {
+                case 0: { break; }
+                case 2: { output += '=='; break; }
+                case 3: { output += '='; break; }
+                default: {
+                    throw 'Illegal base64url string!';
+                }
+            }
+            return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
+        }
+
+    </script>
+</body>
+</html>

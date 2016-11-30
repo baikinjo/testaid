@@ -1,0 +1,47 @@
+﻿@model List<ApplicationUser>
+
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SecondAid.Resources.SharedResource> SharedLocalizer
+
+@{
+    ViewBag.Title = string.Format("Users for role '{0}'", ViewBag.RoleName);
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr>
+        <th colspan="2">
+            @Localizer["Username"]
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.ActionLink("Remove", "RemoveUserFromRole", new { RoleName = ViewBag.RoleName, UserName = item.UserName })
+            </td>
+        </tr>
+    }
+</table>
+
+@using (Html.BeginForm("AddUserToRole", "Roles", new { RoleName = ViewBag.RoleName }, FormMethod.Post))
+{
+    <div class="form-actions no-color">
+        @Html.DropDownList("UserName", (SelectList)ViewBag.UsersToAdd, htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="Add User" class="btn btn-default" />
+    </div>
+}
+<br />
+<div>
+    <a asp-action="Index" class="glyphicon glyphicon-arrow-left" title="Back to Roles"></a>
+    <a asp-action="Index">@SharedLocalizer["Back to Roles"]</a>
+</div>
+
+

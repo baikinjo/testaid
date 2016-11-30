@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IHtmlLocalizer<SecondAid.Resources.SharedResource> SharedLocalizer
+
+@{
+    ViewBag.Title = "Created";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h3>@ViewBag.Message</h3>
+
+<div>
+    <a asp-action="Index" class="glyphicon glyphicon-arrow-left" title="Back to Roles"></a>
+    <a asp-action="Index">@SharedLocalizer["Back to Roles"]</a>
+</div>
+

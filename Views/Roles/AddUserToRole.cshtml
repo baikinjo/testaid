@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer Localizer
+
+@{
+    ViewBag.Title = Localizer["Add User To Role"];
+    string msg = string.Format("Back to users in role '{0}'", ViewBag.RoleName);
+}
+
+<h2>@ViewBag.Title</h2>
+<h3>@ViewBag.Message</h3>
+
+@Html.ActionLink(msg, "Users", new { id = ViewBag.RoleName })

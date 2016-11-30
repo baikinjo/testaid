@@ -1,0 +1,35 @@
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer Localizer
+@inject IHtmlLocalizer<SecondAid.Resources.SharedResource> SharedLocalizer
+
+@model SecondAid.Models.Health.MedicationInstruction
+
+@{
+    ViewData["Title"] = Localizer["Medication Instruction Details"];
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicationId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Medication.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Instruction)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Instruction)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index" class="glyphicon glyphicon-arrow-left" title="Back to List"></a>
+    <a asp-action="Index">@SharedLocalizer["Back to List"]</a> |
+    <a asp-action="Edit" asp-route-id="@Model.MedicationInstructionId">Edit</a>
+</div>
