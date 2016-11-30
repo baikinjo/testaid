@@ -18,5 +18,6 @@ namespace SecondAid.Models.Health
         public string Description { get; set; }
 
         public List<SubProcedure> SubProcedures { get; set; }
+        public List<Schedule> Schedules { get; set; }
     }
 }

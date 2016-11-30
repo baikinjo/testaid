@@ -405,6 +405,26 @@ namespace SecondAid.Migrations
                     b.ToTable("Questionnaires");
                 });
 
+            modelBuilder.Entity("SecondAid.Models.Health.Schedule", b =>
+                {
+                    b.Property<int>("ScheduleId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsCompleted");
+
+                    b.Property<string>("PatientName");
+
+                    b.Property<int>("ProcedureId");
+
+                    b.Property<DateTime>("Time");
+
+                    b.HasKey("ScheduleId");
+
+                    b.HasIndex("ProcedureId");
+
+                    b.ToTable("Schedule");
+                });
+
             modelBuilder.Entity("SecondAid.Models.Health.SubProcedure", b =>
                 {
                     b.Property<int>("SubProcedureId")
@@ -540,6 +560,14 @@ namespace SecondAid.Migrations
                     b.HasOne("SecondAid.Models.Health.SubProcedure", "SubProcedure")
                         .WithMany()
                         .HasForeignKey("SubProcedureId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SecondAid.Models.Health.Schedule", b =>
+                {
+                    b.HasOne("SecondAid.Models.Health.Procedure", "Procedure")
+                        .WithMany("Schedules")
+                        .HasForeignKey("ProcedureId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

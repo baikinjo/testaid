@@ -22,7 +22,7 @@ namespace SecondAid.Data.Seed.Users
                 // Add a new user 'guest', no roles and default password 'Open123$'
                 new UserWithRoles(context, "guest"),
 
-                new UserWithRoles("patient", new string[] {"Patient"}, "P@$$w0rd"),
+                new UserWithRoles(context, "patient", new string[] {"Patient"}, "P@$$w0rd"),
 
                 // Add a new user 'bob', role 'Patient' and default password 'Open123$'
                 new UserWithRoles(context, "jane",new string[]{"Patient" }) //seed roles to existing users (e.g. facebook login).

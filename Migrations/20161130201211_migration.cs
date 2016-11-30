@@ -78,40 +78,20 @@ namespace SecondAid.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
+                name: "Clinics",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    AddressCity = table.Column<string>(nullable: true),
-                    AddressCountry = table.Column<string>(nullable: true),
-                    AddressPostalCode = table.Column<string>(nullable: true),
-                    AddressProvince = table.Column<string>(nullable: true),
-                    AddressStreet = table.Column<string>(nullable: true),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    DateOfBirth = table.Column<DateTime>(nullable: false),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    Gender = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    NextOfKinFullName = table.Column<string>(nullable: true),
-                    NextOfKinPhoneNumber = table.Column<string>(nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
-                    PasswordHash = table.Column<string>(nullable: true),
-                    PersonalHealthNumber = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    SecurityStamp = table.Column<string>(nullable: true),
-                    TwoFactorEnabled = table.Column<bool>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true)
+                    ClinicId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    ClinicAddress = table.Column<string>(nullable: false),
+                    ClinicName = table.Column<string>(nullable: false),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    PhoneNumber = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.PrimaryKey("PK_Clinics", x => x.ClinicId);
                 });
 
             migrationBuilder.CreateTable(
@@ -190,6 +170,113 @@ namespace SecondAid.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    AddressCity = table.Column<string>(nullable: true),
+                    AddressCountry = table.Column<string>(nullable: true),
+                    AddressPostalCode = table.Column<string>(nullable: true),
+                    AddressProvince = table.Column<string>(nullable: true),
+                    AddressStreet = table.Column<string>(nullable: true),
+                    ClinicId = table.Column<int>(nullable: false),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    DateOfBirth = table.Column<DateTime>(nullable: false),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
+                    FirstName = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    NextOfKinFullName = table.Column<string>(nullable: true),
+                    NextOfKinPhoneNumber = table.Column<string>(nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    PasswordHash = table.Column<string>(nullable: true),
+                    PersonalHealthNumber = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(nullable: false),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Clinics_ClinicId",
+                        column: x => x.ClinicId,
+                        principalTable: "Clinics",
+                        principalColumn: "ClinicId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MedicationInstructions",
+                columns: table => new
+                {
+                    MedicationInstructionId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    Instruction = table.Column<string>(maxLength: 255, nullable: false),
+                    MedicationId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MedicationInstructions", x => x.MedicationInstructionId);
+                    table.ForeignKey(
+                        name: "FK_MedicationInstructions_Medications_MedicationId",
+                        column: x => x.MedicationId,
+                        principalTable: "Medications",
+                        principalColumn: "MedicationId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Schedule",
+                columns: table => new
+                {
+                    ScheduleId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    IsCompleted = table.Column<bool>(nullable: false),
+                    PatientName = table.Column<string>(nullable: true),
+                    ProcedureId = table.Column<int>(nullable: false),
+                    Time = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Schedule", x => x.ScheduleId);
+                    table.ForeignKey(
+                        name: "FK_Schedule_Procedures_ProcedureId",
+                        column: x => x.ProcedureId,
+                        principalTable: "Procedures",
+                        principalColumn: "ProcedureId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubProcedures",
+                columns: table => new
+                {
+                    SubProcedureId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    Description = table.Column<string>(maxLength: 255, nullable: true),
+                    Name = table.Column<string>(maxLength: 80, nullable: false),
+                    ProcedureId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubProcedures", x => x.SubProcedureId);
+                    table.ForeignKey(
+                        name: "FK_SubProcedures_Procedures_ProcedureId",
+                        column: x => x.ProcedureId,
+                        principalTable: "Procedures",
+                        principalColumn: "ProcedureId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -251,47 +338,6 @@ namespace SecondAid.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "MedicationInstructions",
-                columns: table => new
-                {
-                    MedicationInstructionId = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    Instruction = table.Column<string>(maxLength: 255, nullable: false),
-                    MedicationId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MedicationInstructions", x => x.MedicationInstructionId);
-                    table.ForeignKey(
-                        name: "FK_MedicationInstructions_Medications_MedicationId",
-                        column: x => x.MedicationId,
-                        principalTable: "Medications",
-                        principalColumn: "MedicationId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SubProcedures",
-                columns: table => new
-                {
-                    SubProcedureId = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    Description = table.Column<string>(maxLength: 255, nullable: true),
-                    Name = table.Column<string>(maxLength: 80, nullable: false),
-                    ProcedureId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubProcedures", x => x.SubProcedureId);
-                    table.ForeignKey(
-                        name: "FK_SubProcedures_Procedures_ProcedureId",
-                        column: x => x.ProcedureId,
-                        principalTable: "Procedures",
-                        principalColumn: "ProcedureId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -434,6 +480,11 @@ namespace SecondAid.Migrations
                 column: "AuthorizationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_ClinicId",
+                table: "AspNetUsers",
+                column: "ClinicId");
+
+            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -468,6 +519,11 @@ namespace SecondAid.Migrations
                 name: "IX_Questionnaires_SubProcedureId",
                 table: "Questionnaires",
                 column: "SubProcedureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Schedule_ProcedureId",
+                table: "Schedule",
+                column: "ProcedureId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubProcedures_ProcedureId",
@@ -513,6 +569,9 @@ namespace SecondAid.Migrations
                 name: "Question");
 
             migrationBuilder.DropTable(
+                name: "Schedule");
+
+            migrationBuilder.DropTable(
                 name: "Videos");
 
             migrationBuilder.DropTable(
@@ -532,6 +591,9 @@ namespace SecondAid.Migrations
 
             migrationBuilder.DropTable(
                 name: "Questionnaires");
+
+            migrationBuilder.DropTable(
+                name: "Clinics");
 
             migrationBuilder.DropTable(
                 name: "SubProcedures");

@@ -8,7 +8,7 @@ using SecondAid.Data;
 namespace SecondAid.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161130074542_migration")]
+    [Migration("20161130201211_migration")]
     partial class migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -204,6 +204,8 @@ namespace SecondAid.Migrations
 
                     b.Property<string>("AddressStreet");
 
+                    b.Property<int>("ClinicId");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -251,6 +253,8 @@ namespace SecondAid.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClinicId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -259,6 +263,31 @@ namespace SecondAid.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("SecondAid.Models.Health.Clinic", b =>
+                {
+                    b.Property<int>("ClinicId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("ClinicAddress")
+                        .IsRequired();
+
+                    b.Property<string>("ClinicName")
+                        .IsRequired();
+
+                    b.Property<string>("FirstName")
+                        .IsRequired();
+
+                    b.Property<string>("LastName")
+                        .IsRequired();
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired();
+
+                    b.HasKey("ClinicId");
+
+                    b.ToTable("Clinics");
                 });
 
             modelBuilder.Entity("SecondAid.Models.Health.Medication", b =>
@@ -377,6 +406,26 @@ namespace SecondAid.Migrations
                     b.ToTable("Questionnaires");
                 });
 
+            modelBuilder.Entity("SecondAid.Models.Health.Schedule", b =>
+                {
+                    b.Property<int>("ScheduleId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsCompleted");
+
+                    b.Property<string>("PatientName");
+
+                    b.Property<int>("ProcedureId");
+
+                    b.Property<DateTime>("Time");
+
+                    b.HasKey("ScheduleId");
+
+                    b.HasIndex("ProcedureId");
+
+                    b.ToTable("Schedule");
+                });
+
             modelBuilder.Entity("SecondAid.Models.Health.SubProcedure", b =>
                 {
                     b.Property<int>("SubProcedureId")
@@ -471,6 +520,14 @@ namespace SecondAid.Migrations
                         .HasForeignKey("AuthorizationId");
                 });
 
+            modelBuilder.Entity("SecondAid.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("SecondAid.Models.Health.Clinic", "Clinic")
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("ClinicId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("SecondAid.Models.Health.MedicationInstruction", b =>
                 {
                     b.HasOne("SecondAid.Models.Health.Medication", "Medication")
@@ -504,6 +561,14 @@ namespace SecondAid.Migrations
                     b.HasOne("SecondAid.Models.Health.SubProcedure", "SubProcedure")
                         .WithMany()
                         .HasForeignKey("SubProcedureId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SecondAid.Models.Health.Schedule", b =>
+                {
+                    b.HasOne("SecondAid.Models.Health.Procedure", "Procedure")
+                        .WithMany("Schedules")
+                        .HasForeignKey("ProcedureId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
