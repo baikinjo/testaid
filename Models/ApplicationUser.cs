@@ -13,7 +13,9 @@ namespace SecondAid.Models
     {
         // http://www.itorian.com/2013/11/customize-users-profile-in-aspnet.html
 
+        [Display(Name = "Firstname")]
         public string FirstName { get; set; }
+        [Display(Name = "Lastname")]
         public string LastName { get; set; }
         public string Gender { get; set; }
         public string PersonalHealthNumber { get; set; }

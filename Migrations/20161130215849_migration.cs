@@ -234,28 +234,6 @@ namespace SecondAid.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Schedule",
-                columns: table => new
-                {
-                    ScheduleId = table.Column<int>(nullable: false)
-                        .Annotation("Autoincrement", true),
-                    IsCompleted = table.Column<bool>(nullable: false),
-                    PatientName = table.Column<string>(nullable: true),
-                    ProcedureId = table.Column<int>(nullable: false),
-                    Time = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Schedule", x => x.ScheduleId);
-                    table.ForeignKey(
-                        name: "FK_Schedule_Procedures_ProcedureId",
-                        column: x => x.ProcedureId,
-                        principalTable: "Procedures",
-                        principalColumn: "ProcedureId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SubProcedures",
                 columns: table => new
                 {
@@ -338,6 +316,67 @@ namespace SecondAid.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PatientProcedure",
+                columns: table => new
+                {
+                    PatientProcedureId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    MedicationId = table.Column<int>(nullable: false),
+                    PatientId = table.Column<string>(nullable: true),
+                    ProcedureId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PatientProcedure", x => x.PatientProcedureId);
+                    table.ForeignKey(
+                        name: "FK_PatientProcedure_Medications_MedicationId",
+                        column: x => x.MedicationId,
+                        principalTable: "Medications",
+                        principalColumn: "MedicationId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PatientProcedure_AspNetUsers_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PatientProcedure_Procedures_ProcedureId",
+                        column: x => x.ProcedureId,
+                        principalTable: "Procedures",
+                        principalColumn: "ProcedureId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Schedule",
+                columns: table => new
+                {
+                    ScheduleId = table.Column<int>(nullable: false)
+                        .Annotation("Autoincrement", true),
+                    IsCompleted = table.Column<bool>(nullable: false),
+                    PatientId = table.Column<string>(nullable: true),
+                    ProcedureId = table.Column<int>(nullable: false),
+                    Time = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Schedule", x => x.ScheduleId);
+                    table.ForeignKey(
+                        name: "FK_Schedule_AspNetUsers_PatientId",
+                        column: x => x.PatientId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Schedule_Procedures_ProcedureId",
+                        column: x => x.ProcedureId,
+                        principalTable: "Procedures",
+                        principalColumn: "ProcedureId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -501,6 +540,21 @@ namespace SecondAid.Migrations
                 column: "MedicationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PatientProcedure_MedicationId",
+                table: "PatientProcedure",
+                column: "MedicationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientProcedure_PatientId",
+                table: "PatientProcedure",
+                column: "PatientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientProcedure_ProcedureId",
+                table: "PatientProcedure",
+                column: "ProcedureId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PreInstructions_SubProcedureId",
                 table: "PreInstructions",
                 column: "SubProcedureId");
@@ -519,6 +573,11 @@ namespace SecondAid.Migrations
                 name: "IX_Questionnaires_SubProcedureId",
                 table: "Questionnaires",
                 column: "SubProcedureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Schedule_PatientId",
+                table: "Schedule",
+                column: "PatientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedule_ProcedureId",
@@ -563,6 +622,9 @@ namespace SecondAid.Migrations
                 name: "MedicationInstructions");
 
             migrationBuilder.DropTable(
+                name: "PatientProcedure");
+
+            migrationBuilder.DropTable(
                 name: "PreInstructions");
 
             migrationBuilder.DropTable(
@@ -578,9 +640,6 @@ namespace SecondAid.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
 
             migrationBuilder.DropTable(
@@ -593,10 +652,13 @@ namespace SecondAid.Migrations
                 name: "Questionnaires");
 
             migrationBuilder.DropTable(
-                name: "Clinics");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
                 name: "SubProcedures");
+
+            migrationBuilder.DropTable(
+                name: "Clinics");
 
             migrationBuilder.DropTable(
                 name: "Procedures");

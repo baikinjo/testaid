@@ -1,0 +1,62 @@
+@model SecondAid.Models.Health.Schedule
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>Schedule</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="IsCompleted" />
+                    <label asp-for="IsCompleted"></label>
+                </div>
+            </div>
+        </div>*@
+        <div class="form-group">
+            <label asp-for="PatientId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="PatientId" class ="form-control" asp-items="ViewBag.PatientId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProcedureId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ProcedureId" class ="form-control" asp-items="ViewBag.ProcedureId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Time" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Time, new { @class = "form-control datepicker", placeholder = "Enter a date" })
+                <span asp-validation-for="Time" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/lib/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="~/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="~/lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <script type="text/javascript">
+        $('.datepicker').datetimepicker();
+    </script>
+}

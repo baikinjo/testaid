@@ -209,7 +209,7 @@ namespace SecondAid
             //});
 
             app.UseMvcWithDefaultRoute();
-
+            
             applicationDbContext.Database.Migrate();
 
             SecondAid.Data.Seed.SeedData.Initialize(applicationDbContext);

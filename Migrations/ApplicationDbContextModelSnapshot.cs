@@ -324,6 +324,28 @@ namespace SecondAid.Migrations
                     b.ToTable("MedicationInstructions");
                 });
 
+            modelBuilder.Entity("SecondAid.Models.Health.PatientProcedure", b =>
+                {
+                    b.Property<int>("PatientProcedureId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("MedicationId");
+
+                    b.Property<string>("PatientId");
+
+                    b.Property<int>("ProcedureId");
+
+                    b.HasKey("PatientProcedureId");
+
+                    b.HasIndex("MedicationId");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("ProcedureId");
+
+                    b.ToTable("PatientProcedure");
+                });
+
             modelBuilder.Entity("SecondAid.Models.Health.PreInstruction", b =>
                 {
                     b.Property<int>("PreInstructionId")
@@ -412,13 +434,15 @@ namespace SecondAid.Migrations
 
                     b.Property<bool>("IsCompleted");
 
-                    b.Property<string>("PatientName");
+                    b.Property<string>("PatientId");
 
                     b.Property<int>("ProcedureId");
 
                     b.Property<DateTime>("Time");
 
                     b.HasKey("ScheduleId");
+
+                    b.HasIndex("PatientId");
 
                     b.HasIndex("ProcedureId");
 
@@ -535,6 +559,23 @@ namespace SecondAid.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("SecondAid.Models.Health.PatientProcedure", b =>
+                {
+                    b.HasOne("SecondAid.Models.Health.Medication", "MedicationPrescribed")
+                        .WithMany("PatientProcedures")
+                        .HasForeignKey("MedicationId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SecondAid.Models.ApplicationUser", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId");
+
+                    b.HasOne("SecondAid.Models.Health.Procedure", "Procedure")
+                        .WithMany("PatientProcedures")
+                        .HasForeignKey("ProcedureId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("SecondAid.Models.Health.PreInstruction", b =>
                 {
                     b.HasOne("SecondAid.Models.Health.SubProcedure", "SubProcedure")
@@ -565,6 +606,10 @@ namespace SecondAid.Migrations
 
             modelBuilder.Entity("SecondAid.Models.Health.Schedule", b =>
                 {
+                    b.HasOne("SecondAid.Models.ApplicationUser", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId");
+
                     b.HasOne("SecondAid.Models.Health.Procedure", "Procedure")
                         .WithMany("Schedules")
                         .HasForeignKey("ProcedureId")

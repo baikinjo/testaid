@@ -13,7 +13,7 @@ namespace SecondAid.Models.Health
         public Procedure Procedure { get; set; } 
 
 
-        public string Id { get; set; } 
+        public string PatientId { get; set; } 
         public ApplicationUser Patient { get; set; }
 
 

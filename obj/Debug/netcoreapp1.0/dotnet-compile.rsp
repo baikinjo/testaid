@@ -264,12 +264,14 @@
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/ManageController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/MedicationInstructionsController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/MedicationsController.cs
+/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/PatientProceduresController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/PatientsController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/PreInstructionsController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/ProceduresController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/QuestionnairesController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/QuestionsController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/RolesController.cs
+/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/SchedulesController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/SubProceduresController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/UsersController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/VideosController.cs
@@ -279,6 +281,7 @@
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/PreInstructionsController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/ProceduresController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/QuestionnairesController.cs
+/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/SchedulesController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/SubProceduresController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/VideosController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Data/ApplicationDbContext.cs
@@ -293,8 +296,8 @@
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Data/Seed/Users/UserRoleSeedData.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Data/Seed/Users/UserWithRoles.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Helpers/FormValueRequiredAttribute.cs
-/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Migrations/20161130201211_migration.cs
-/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Migrations/20161130201211_migration.Designer.cs
+/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Migrations/20161130215849_migration.cs
+/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Migrations/20161130215849_migration.Designer.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Migrations/ApplicationDbContextModelSnapshot.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Models/ApplicationUser.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Models/AccountViewModels/ExternalLoginConfirmationViewModel.cs

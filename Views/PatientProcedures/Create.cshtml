@@ -1,0 +1,46 @@
+@model SecondAid.Models.Health.PatientProcedure
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<form asp-action="Create">
+    <div class="form-horizontal">
+        <h4>PatientProcedure</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="MedicationId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="MedicationId" class ="form-control" asp-items="ViewBag.MedicationId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PatientId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="PatientId" class ="form-control" asp-items="ViewBag.PatientId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="ProcedureId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="ProcedureId" class ="form-control" asp-items="ViewBag.ProcedureId"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

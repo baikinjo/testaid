@@ -20,5 +20,6 @@ namespace SecondAid.Models.Health
         public string Description { get; set; }
 
         public List<MedicationInstruction> MedicationInstructions { get; set; }
+        public List<PatientProcedure> PatientProcedures { get; set; }
     }
 }

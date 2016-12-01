@@ -1,0 +1,57 @@
+@model IEnumerable<SecondAid.Models.Health.Schedule>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Manage Patient Procedure Schedules</h2>
+
+<p>
+    <a asp-action="Create">Create New Schedule</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Patient.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCompleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCompleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ScheduleId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ScheduleId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ScheduleId">Delete</a> |
+                @if(!item.IsCompleted)
+                {
+                    @Html.ActionLink("Mark Completed", "Unlock", new { id = item.ScheduleId })
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

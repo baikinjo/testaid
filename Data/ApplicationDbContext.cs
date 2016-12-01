@@ -35,6 +35,8 @@ namespace SecondAid.Data
         public DbSet<Questionnaire> Questionnaires { get; set; }
         public DbSet<Question> Question { get; set; }
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<PatientProcedure> PatientProcedure { get; set; }
+        public DbSet<Schedule> Schedule { get; set; }
 
     }
 }
