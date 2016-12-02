@@ -17,6 +17,7 @@ namespace SecondAid.Controllers.Api
     [Authorize]
     [Produces("application/json")]
     [Route("api/Procedures")]
+    [EnableCors("SiteCorsPolicy")]
     public class ProceduresController : Controller
     {
         private readonly ApplicationDbContext _context;

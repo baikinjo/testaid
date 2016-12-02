@@ -15,6 +15,7 @@ namespace SecondAid.Controllers.Api
 {
     [Produces("application/json")]
     [Route("api/Videos")]
+    [EnableCors("SiteCorsPolicy")]
     public class VideosController : Controller
     {
         private readonly ApplicationDbContext _context;

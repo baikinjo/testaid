@@ -16,6 +16,7 @@ using CryptoHelper;
 using System.Linq;
 using SecondAid.Data;
 using SecondAid.Services;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 namespace SecondAid
 {
@@ -102,7 +103,7 @@ namespace SecondAid
                 .AddDataAnnotationsLocalization();
 
             //services.AddCors();
-            services.AddCors();
+            // services.AddCors();
 
             services.AddScoped<LanguageActionFilter>();
 
@@ -155,6 +156,17 @@ namespace SecondAid
                 .AddEphemeralSigningKey();
 
             services.AddSwaggerGen();
+
+            var corsBuilder = new CorsPolicyBuilder();
+            corsBuilder.AllowAnyHeader();
+            corsBuilder.AllowAnyMethod();
+            corsBuilder.AllowAnyOrigin();
+            corsBuilder.AllowCredentials();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("SiteCorsPolicy", corsBuilder.Build());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -188,11 +200,11 @@ namespace SecondAid
 
             app.UseOpenIddict();
 
-                app.UseCors(builder => builder
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                );
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+            );
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
 
@@ -210,7 +222,7 @@ namespace SecondAid
 
             app.UseMvcWithDefaultRoute();
             
-            applicationDbContext.Database.Migrate();
+            //applicationDbContext.Database.Migrate();
 
             SecondAid.Data.Seed.SeedData.Initialize(applicationDbContext);
             SecondAid.Data.Seed.Users.UserRoleSeedData.SeedUsersAndRoles(app);
@@ -266,6 +278,8 @@ namespace SecondAid
                 app.UseSwagger();
 
                 app.UseSwaggerUi();
+
+                app.UseCors("SiteCorsPolicy");
             }
 
         }

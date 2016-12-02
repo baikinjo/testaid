@@ -8,11 +8,13 @@ using Microsoft.EntityFrameworkCore;
 using SecondAid.Data;
 using SecondAid.Models.Health;
 using SecondAid.Models.HealthViewModels;
+using Microsoft.AspNetCore.Cors;
 
 namespace SecondAid.Controllers.Api
 {
     [Produces("application/json")]
     [Route("api/Clinics")]
+    [EnableCors("SiteCorsPolicy")]
     public class ClinicsController : Controller
     {
         private readonly ApplicationDbContext _context;

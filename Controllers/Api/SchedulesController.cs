@@ -10,12 +10,14 @@ using SecondAid.Models.Health;
 using Microsoft.AspNetCore.Authorization;
 using SecondAid.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Cors;
 
 namespace SecondAid.Controllers.Api
 {
 	[Produces("application/json")]
     [Route("api/Schedules")]
 	[Authorize]
+    [EnableCors("SiteCorsPolicy")]
     public class SchedulesController : Controller
     {
 		private readonly ApplicationDbContext _context;
@@ -41,7 +43,7 @@ namespace SecondAid.Controllers.Api
                 Console.WriteLine(item.IsCompleted);
             }
 
-            return applicationDbContext.ToList();
+            return applicationDbContext;
         } 
 	}
 }

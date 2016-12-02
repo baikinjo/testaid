@@ -15,6 +15,7 @@ namespace SecondAid.Controllers.Api
 {
     [Produces("application/json")]
     [Route("api/SubProcedures")]
+    [EnableCors("SiteCorsPolicy")]
     public class SubProceduresController : Controller
     {
         private readonly ApplicationDbContext _context;

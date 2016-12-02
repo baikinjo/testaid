@@ -15,6 +15,7 @@ namespace SecondAid.Controllers.Api
 {
     [Produces("application/json")]
     [Route("api/MedicationInstructions")]
+    [EnableCors("SiteCorsPolicy")] 
     public class MedicationInstructionsController : Controller
     {
         private readonly ApplicationDbContext _context;

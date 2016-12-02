@@ -15,6 +15,7 @@ namespace SecondAid.Controllers.Api
 {
     [Produces("application/json")]
     [Route("api/PreInstructions")]
+    [EnableCors("SiteCorsPolicy")]
     public class PreInstructionsController : Controller
     {
         private readonly ApplicationDbContext _context;

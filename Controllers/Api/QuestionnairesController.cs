@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SecondAid.Data;
 using SecondAid.Models.Health;
+using Microsoft.AspNetCore.Cors;
 
 namespace SecondAid.Controllers.Api
 {
     [Produces("application/json")]
     [Route("api/Questionnaires")]
+    [EnableCors("SiteCorsPolicy")]
     public class QuestionnairesController : Controller
     {
         private readonly ApplicationDbContext _context;
