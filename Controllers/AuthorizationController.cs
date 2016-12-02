@@ -17,9 +17,11 @@ using SecondAid.ViewModels.Shared;
 using SecondAid.Helpers;
 using System.Linq;
 using AspNet.Security.OpenIdConnect.Primitives;
+using Microsoft.AspNetCore.Cors;
 
 namespace SecondAid.Controllers
 {
+    [EnableCors("SiteCorsPolicy")]
     public class AuthorizationController : Controller
     {
         private readonly OpenIddictApplicationManager<OpenIddictApplication> _applicationManager;
