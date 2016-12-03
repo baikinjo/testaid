@@ -18,6 +18,7 @@ namespace SecondAid.Models.Health
         public string Description { get; set; }
 
         public List<SubProcedure> SubProcedures { get; set; }
+        [ScaffoldColumn(false)]
         public List<Schedule> Schedules { get; set; }
         public List<PatientProcedure> PatientProcedures { get; set; }
     }

@@ -35,6 +35,7 @@ namespace SecondAid.Controllers
             }
 
             var patientProcedure = await _context.PatientProcedure.SingleOrDefaultAsync(m => m.PatientProcedureId == id);
+
             if (patientProcedure == null)
             {
                 return NotFound();
@@ -47,7 +48,7 @@ namespace SecondAid.Controllers
         public IActionResult Create()
         {
             ViewData["MedicationId"] = new SelectList(_context.Medications, "MedicationId", "Name");
-            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "Id", "Id");
+            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "Id", "UserName");
             ViewData["ProcedureId"] = new SelectList(_context.Procedures, "ProcedureId", "Name");
             return View();
         }
@@ -66,7 +67,7 @@ namespace SecondAid.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["MedicationId"] = new SelectList(_context.Medications, "MedicationId", "Name", patientProcedure.MedicationId);
-            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "Id", "Id", patientProcedure.PatientId);
+            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "Id", "UserName", patientProcedure.PatientId);
             ViewData["ProcedureId"] = new SelectList(_context.Procedures, "ProcedureId", "Name", patientProcedure.ProcedureId);
             return View(patientProcedure);
         }
@@ -85,7 +86,7 @@ namespace SecondAid.Controllers
                 return NotFound();
             }
             ViewData["MedicationId"] = new SelectList(_context.Medications, "MedicationId", "Name", patientProcedure.MedicationId);
-            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "Id", "Id", patientProcedure.PatientId);
+            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "Id", "UserName", patientProcedure.PatientId);
             ViewData["ProcedureId"] = new SelectList(_context.Procedures, "ProcedureId", "Name", patientProcedure.ProcedureId);
             return View(patientProcedure);
         }
@@ -123,7 +124,7 @@ namespace SecondAid.Controllers
                 return RedirectToAction("Index");
             }
             ViewData["MedicationId"] = new SelectList(_context.Medications, "MedicationId", "Name", patientProcedure.MedicationId);
-            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "Id", "Id", patientProcedure.PatientId);
+            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "Id", "UserName", patientProcedure.PatientId);
             ViewData["ProcedureId"] = new SelectList(_context.Procedures, "ProcedureId", "Name", patientProcedure.ProcedureId);
             return View(patientProcedure);
         }

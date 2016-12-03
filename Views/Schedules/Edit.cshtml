@@ -12,19 +12,12 @@
         <hr />
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="ScheduleId" />
+        
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <div class="checkbox">
-                    <input asp-for="IsCompleted" />
-                    <label asp-for="IsCompleted"></label>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="PatientId" class="control-label col-md-2"></label>
+            <label asp-for="Patient.UserName" class="control-label col-md-2">Patient UserName</label>
             <div class="col-md-10">
-                <select asp-for="PatientId" class="form-control" asp-items="ViewBag.PatientId"></select>
-                <span asp-validation-for="PatientId" class="text-danger" />
+                <input asp-for="Patient.UserName" class="form-control" disabled="disabled" />
+                <span asp-validation-for="Patient.UserName" class="text-danger" />
             </div>
         </div>
         <div class="form-group">
@@ -37,10 +30,19 @@
         <div class="form-group">
             <label asp-for="Time" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                <input asp-for="Time" class="form-control" />
+                @Html.TextBoxFor(model => model.Time, new { @class = "form-control datepicker", placeholder = "Enter a date" })
                 <span asp-validation-for="Time" class="text-danger" />
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <div class="checkbox">
+                    <input asp-for="IsCompleted" />
+                    <label asp-for="IsCompleted"></label>
+                </div>
+            </div>
+        </div>
+        <br />
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -55,4 +57,11 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script type="text/javascript" src="~/lib/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="~/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="~/lib/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    <script type="text/javascript">
+        $('.datepicker').datetimepicker();
+    </script>
 }

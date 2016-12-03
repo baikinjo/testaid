@@ -10,6 +10,24 @@
     <h4>PatientProcedure</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Patient.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Patient.UserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Procedure.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Procedure.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MedicationPrescribed.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MedicationPrescribed.Name)
+        </dd>
     </dl>
 </div>
 <div>

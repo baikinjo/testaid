@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using SecondAid.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.Extensions.Logging;
 
 namespace SecondAid.Controllers.Api
 {
@@ -23,25 +24,21 @@ namespace SecondAid.Controllers.Api
 		private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-		public SchedulesController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public SchedulesController(ApplicationDbContext context, 
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
 
 		[HttpGet]
+        [Produces("application/json")]
         public IEnumerable<Schedule> GetSchedules()
         {
             var userID = _userManager.GetUserId(User);
 
             var applicationDbContext = _context.Schedule
-                .Include(s => s.Procedure)
                 .Where(u => u.PatientId == userID);
-
-            foreach ( var item in applicationDbContext)
-            {
-                Console.WriteLine(item.IsCompleted);
-            }
 
             return applicationDbContext;
         } 

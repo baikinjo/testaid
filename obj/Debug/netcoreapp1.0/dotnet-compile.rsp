@@ -283,6 +283,7 @@
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/QuestionnairesController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/SchedulesController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/SubProceduresController.cs
+/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/UserInfoController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/VideosController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Data/ApplicationDbContext.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Data/Seed/ClinicData.cs
@@ -306,6 +307,7 @@
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Models/AccountViewModels/RegisterViewModel.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Models/AccountViewModels/ResetPasswordViewModel.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Models/AccountViewModels/SendCodeViewModel.cs
+/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Models/AccountViewModels/UserInfoViewModel.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Models/AccountViewModels/VerifyCodeViewModel.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Models/Health/Clinic.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Models/Health/Medication.cs

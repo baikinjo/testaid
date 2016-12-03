@@ -44,13 +44,29 @@ namespace SecondAid.Controllers
                 return NotFound();
             }
 
-            var schedule = await _context.Schedule.SingleOrDefaultAsync(m => m.ScheduleId == id);
+            var schedule = await _context.Schedule
+                .Include(s => s.Procedure)
+                .Include(s => s.Patient)
+                .SingleOrDefaultAsync(m => m.ScheduleId == id);
+
             if (schedule == null)
             {
                 return NotFound();
             }
 
             return View(schedule);
+        }
+
+        // marks the procedure completed for the specified schedule id
+        public IActionResult Complete(int id)
+        {
+            var schedule = _context.Schedule.FirstOrDefault(r => r.ScheduleId == id);
+            
+            schedule.IsCompleted = true;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // GET: Schedules/Create
@@ -74,8 +90,8 @@ namespace SecondAid.Controllers
             //Console.WriteLine(schedule.Patient);
             Console.WriteLine(schedule.PatientId);
             Console.WriteLine(schedule.ProcedureId);
+
             schedule.Procedure = _context.Procedures.FirstOrDefault(r => r.ProcedureId == schedule.ProcedureId);
-            schedule.Patient = _context.ApplicationUser.FirstOrDefault(r => r.UserName == schedule.PatientId);
 
             if(DateTime.Today > schedule.Time)
             {
@@ -104,12 +120,16 @@ namespace SecondAid.Controllers
                 return NotFound();
             }
 
-            var schedule = await _context.Schedule.SingleOrDefaultAsync(m => m.ScheduleId == id);
+            var schedule = await _context.Schedule
+                .Include(s => s.Patient)
+                .SingleOrDefaultAsync(m => m.ScheduleId == id);
+
             if (schedule == null)
             {
                 return NotFound();
             }
-            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "Id", "Id", schedule.PatientId);
+
+            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "UserName", "UserName", schedule.PatientId);
             ViewData["ProcedureId"] = new SelectList(_context.Procedures, "ProcedureId", "Name", schedule.ProcedureId);
             return View(schedule);
         }
@@ -126,8 +146,19 @@ namespace SecondAid.Controllers
                 return NotFound();
             }
 
+            if (DateTime.Today > schedule.Time)
+            {
+                ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "UserName", "UserName", schedule.PatientId);
+                ViewData["ProcedureId"] = new SelectList(_context.Procedures, "ProcedureId", "Name", schedule.ProcedureId);
+                ModelState.AddModelError(string.Empty, "The date/time is not valid!");
+                return View(schedule);
+            }
+
             if (ModelState.IsValid)
             {
+                schedule.Procedure = _context.Procedures.FirstOrDefault(r => r.ProcedureId == schedule.ProcedureId);
+                schedule.Patient = _context.ApplicationUser.FirstOrDefault(r => r.UserName == schedule.PatientId);
+
                 try
                 {
                     _context.Update(schedule);
@@ -146,7 +177,7 @@ namespace SecondAid.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "Id", "Id", schedule.PatientId);
+            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "UserName", "UserName", schedule.PatientId);
             ViewData["ProcedureId"] = new SelectList(_context.Procedures, "ProcedureId", "Name", schedule.ProcedureId);
             return View(schedule);
         }

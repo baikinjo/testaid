@@ -14,6 +14,9 @@ namespace SecondAid.Models.Health
         [Display(Name ="Procedure Date")]
         public DateTime Time { get; set; }
 
+        [Display(Name = "Procedure Completed")]
+        public bool IsCompleted { get; set; }
+
         [Display(Name = "Patient Username")]
         public string PatientId { get; set; }
         public ApplicationUser Patient { get; set; }
@@ -21,9 +24,5 @@ namespace SecondAid.Models.Health
         [Display(Name = "Procedure Name")]
         public int ProcedureId { get; set; }
         public Procedure Procedure { get; set; }
-
-        [Display(Name="Procedure Completed")]
-        public bool IsCompleted { get; set; }
-
     }
 }
