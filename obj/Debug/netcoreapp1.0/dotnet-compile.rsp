@@ -278,6 +278,7 @@
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/ClinicsController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/MedicationInstructionsController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/MedicationsController.cs
+/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/PatientProceduresController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/PreInstructionsController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/ProceduresController.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Controllers/Api/QuestionnairesController.cs
@@ -297,8 +298,8 @@
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Data/Seed/Users/UserRoleSeedData.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Data/Seed/Users/UserWithRoles.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Helpers/FormValueRequiredAttribute.cs
-/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Migrations/20161130215849_migration.cs
-/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Migrations/20161130215849_migration.Designer.cs
+/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Migrations/20161201072311_first_migration.cs
+/Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Migrations/20161201072311_first_migration.Designer.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Migrations/ApplicationDbContextModelSnapshot.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Models/ApplicationUser.cs
 /Users/Manjot/Desktop/dotnet/SecondAid/SecondAid/Models/AccountViewModels/ExternalLoginConfirmationViewModel.cs
