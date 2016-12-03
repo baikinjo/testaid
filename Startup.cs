@@ -222,7 +222,7 @@ namespace SecondAid
 
             app.UseMvcWithDefaultRoute();
             
-            //applicationDbContext.Database.Migrate();
+            applicationDbContext.Database.Migrate();
 
             SecondAid.Data.Seed.SeedData.Initialize(applicationDbContext);
             SecondAid.Data.Seed.Users.UserRoleSeedData.SeedUsersAndRoles(app);
