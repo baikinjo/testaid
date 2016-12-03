@@ -92,6 +92,7 @@ namespace SecondAid.Controllers
             Console.WriteLine(schedule.ProcedureId);
 
             schedule.Procedure = _context.Procedures.FirstOrDefault(r => r.ProcedureId == schedule.ProcedureId);
+            schedule.Patient = _context.ApplicationUser.FirstOrDefault(r => r.UserName == schedule.PatientId);
 
             if(DateTime.Today > schedule.Time)
             {
@@ -103,11 +104,12 @@ namespace SecondAid.Controllers
 
             if (ModelState.IsValid)
             {
+                schedule.PatientId = schedule.Patient.Id;
                 _context.Add(schedule);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "UserName", "UserName", schedule.PatientId);
+            ViewData["PatientId"] = new SelectList(_context.ApplicationUser, "PatientId", "UserName", schedule.PatientId);
             ViewData["ProcedureId"] = new SelectList(_context.Procedures, "ProcedureId", "Name", schedule.ProcedureId);
             return View(schedule);
         }
@@ -157,7 +159,6 @@ namespace SecondAid.Controllers
             if (ModelState.IsValid)
             {
                 schedule.Procedure = _context.Procedures.FirstOrDefault(r => r.ProcedureId == schedule.ProcedureId);
-                schedule.Patient = _context.ApplicationUser.FirstOrDefault(r => r.UserName == schedule.PatientId);
 
                 try
                 {

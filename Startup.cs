@@ -34,7 +34,7 @@ namespace SecondAid
 
             if (env.IsDevelopment()) {
                 // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets();
+//                builder.AddUserSecrets();
             }
 
             builder.AddEnvironmentVariables();
@@ -222,7 +222,7 @@ namespace SecondAid
 
             app.UseMvcWithDefaultRoute();
             
-            applicationDbContext.Database.Migrate();
+            //applicationDbContext.Database.Migrate();
 
             SecondAid.Data.Seed.SeedData.Initialize(applicationDbContext);
             SecondAid.Data.Seed.Users.UserRoleSeedData.SeedUsersAndRoles(app);

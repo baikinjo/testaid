@@ -8,8 +8,8 @@ using SecondAid.Data;
 namespace SecondAid.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161201072311_first_migration")]
-    partial class first_migration
+    [Migration("20161203023059_migration")]
+    partial class migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
