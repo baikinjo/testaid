@@ -12,7 +12,19 @@ namespace SecondAid.Data.Seed
         {
             List<PatientProcedure> items = new List<PatientProcedure>()
             {
+            	new PatientProcedure
+                {
+                    Patient = context.ApplicationUser.FirstOrDefault(p => p.UserName == "jane"),
+                    Procedure = context.Procedures.FirstOrDefault(p => p.Name == "Root Canal"),
+                    MedicationPrescribed = context.Medications.FirstOrDefault(p => p.Name == "Temovate"),
+                },
 
+                new PatientProcedure
+                {
+                    Patient = context.ApplicationUser.FirstOrDefault(p => p.UserName == "jane"),
+                    Procedure = context.Procedures.FirstOrDefault(p => p.Name == "Teeth Whitening"),
+                    MedicationPrescribed = context.Medications.FirstOrDefault(p => p.Name == "Xylocaine"),
+                },
             };
 
 
