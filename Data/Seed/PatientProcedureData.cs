@@ -14,14 +14,14 @@ namespace SecondAid.Data.Seed
             {
             	new PatientProcedure
                 {
-                    Patient = context.ApplicationUser.FirstOrDefault(p => p.UserName == "jane"),
-                    Procedure = context.Procedures.FirstOrDefault(p => p.Name == "Root Canal"),
+                    Patient = context.ApplicationUser.FirstOrDefault(p => p.UserName == "patient@gmail.com"),
+                    Procedure = context.Procedures.FirstOrDefault(p => p.Name == "Repairs"),
                     MedicationPrescribed = context.Medications.FirstOrDefault(p => p.Name == "Temovate"),
                 },
 
                 new PatientProcedure
                 {
-                    Patient = context.ApplicationUser.FirstOrDefault(p => p.UserName == "jane"),
+                    Patient = context.ApplicationUser.FirstOrDefault(p => p.UserName == "patient@gmail.com"),
                     Procedure = context.Procedures.FirstOrDefault(p => p.Name == "Teeth Whitening"),
                     MedicationPrescribed = context.Medications.FirstOrDefault(p => p.Name == "Xylocaine"),
                 },
